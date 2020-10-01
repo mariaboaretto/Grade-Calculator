@@ -6,20 +6,25 @@ void inputs(int *grades, int classSize)
 {
     for (int i = 0; i < classSize; i++)
     {
-        printf("\nInsira a nota do %dº aluno:\n", i + 1);
-        scanf("%d", &grades[i]);
 
-        if (grades[i] < 1 || grades[i] > 10)
+        do
         {
-            printf("\nNota inválida. Insira apenas números de 1 a 10.\n");
-            break;
-        }
+            printf("\nInsira a nota do %dº aluno:\n", i + 1);
+            scanf("%d", &grades[i]);
+
+            if (grades[i] < 1 || grades[i] > 10)
+            {
+                printf("\nNota inválida. Insira apenas números de 1 a 10.\n");
+            }
+        } while (grades[i] < 1 || grades[i] > 10);
     }
 }
 
-void maxGrade(int *grades, int classSize)
+void classStatistics(int *grades, int classSize)
 {
     int currentMax = grades[0];
+    int currentMin = grades[0];
+    int sum = 0;
 
     for (int i = 0; i < classSize; i++)
     {
@@ -27,36 +32,23 @@ void maxGrade(int *grades, int classSize)
         {
             currentMax = grades[i];
         }
-    }
-    printf("\nA maior nota é: %d\n", currentMax);
-}
-
-void minGrade(int *grades, int classSize)
-{
-    int currentMin = grades[0];
-
-    for (int i = 0; i < classSize; i++)
-    {
         if (grades[i] < currentMin)
         {
             currentMin = grades[i];
         }
+        sum = sum + grades[i];
     }
+    printf("\nA maior nota é: %d\n", currentMax);
     printf("\nA menor nota é: %d\n", currentMin);
-}
-
-void classAverage(int *grades)
-{
-    
+    printf("\nA média das notas é: %d\n", sum / classSize);
 }
 
 int main()
 {
-    int grades[10];
-    int classSize = 10;
+    int grades[5];
+    int classSize = 5;
     inputs(grades, classSize);
-    maxGrade(grades, classSize);
-    minGrade(grades, classSize);
+    classStatistics(grades, classSize);
 
     return 0;
 }
